@@ -1,36 +1,31 @@
 package hogwarts.school2.service;
 
+import hogwarts.school2.repositories.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import hogwarts.school2.model.Student;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Service
 public class StudentService {
-    private final Map<Long, Student> studentMap = new HashMap<>();
-    private long lastId = 0;
+    @Autowired
+    private StudentRepository studentRepository;
+
 
     public Student createStudent(Student student){
-        student.setId(++lastId);
-        studentMap.put(lastId, student);
-        return student;
+        return studentRepository.save(student);
     }
     public Student findStudent(long id){
-        if (studentMap.containsKey(id)) {
-            return studentMap.get(id);
-        }
-        return null;
+        return studentRepository.findById(id).get();
     }
     public Student editStudent(Student student){
-        if (studentMap.containsKey(student.getId())) {
-            studentMap.put(student.getId(), student);
-            return student;
-        }
-        return null;
+        return studentRepository.save(student);
     }
-    public Student deleteStudent(long id){
-        return studentMap.remove(id);
+    public void deleteStudent(long id){
+        studentRepository.deleteById(id);
+    }
+    public Collection<Student> getAllStudents(){
+        return studentRepository.findAll();
     }
 }
