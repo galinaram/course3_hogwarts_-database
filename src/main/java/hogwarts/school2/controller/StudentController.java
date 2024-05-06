@@ -48,14 +48,6 @@ public class StudentController {
 
     @GetMapping
     public Collection<Student> getStudentsWithOneAge(@RequestParam int age){
-        List<Student> studentsCollection = new ArrayList<>();
-        int i = 0;
-        while (studentService.findStudent(i)!= null){
-            if(studentService.findStudent(i).getAge() == age){
-                studentsCollection.add(studentService.findStudent(i));
-                i++;
-            }
-        }
-        return studentsCollection;
+        return studentService.findStudentByAge(age);
     }
 }
