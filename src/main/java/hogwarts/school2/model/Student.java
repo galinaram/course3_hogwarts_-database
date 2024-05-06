@@ -9,8 +9,12 @@ public class Student {
     @GeneratedValue
     private Long id;
 
-    private final String name;
-    private final int age;
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
     public Student(Long id, String name, int age){
         this.id = id;
         this.name = name;
